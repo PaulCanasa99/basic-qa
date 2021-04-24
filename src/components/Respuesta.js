@@ -3,12 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-  preguntaContainer: {
+  respuestaContainer: {
     padding: '15px',
     backgroundColor: 'white',
     borderRadius: '0 0 10px 10px',
   },
-  preguntaHeader: {
+  respuestaHeader: {
     borderRadius: '10px 10px 0 0',
     padding: '15px',
     backgroundColor: theme.palette.secondary.main,
@@ -20,10 +20,10 @@ const Respuesta = ({ respuesta }) => {
   const classes = useStyles();
   return (
     <>
-      <div className={classes.preguntaHeader}>
+      <div className={classes.respuestaHeader}>
         <Typography variant="h5">{respuesta.autor}</Typography>
       </div>
-      <div className={classes.preguntaContainer}>
+      <div className={classes.respuestaContainer}>
         <Typography variant="body1">{respuesta.respuesta}</Typography>
         <Typography variant="body2" align="right">
           10 respuestas

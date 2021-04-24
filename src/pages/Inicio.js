@@ -28,7 +28,7 @@ const Inicio = () => {
           </Typography>
         </Grid>
         <Grid>
-          <Button variant="contained" className={classes.test} color="secondary" startIcon={<AddIcon />}>
+          <Button variant="contained" color="secondary" startIcon={<AddIcon />}>
             Nueva pregunta
           </Button>
         </Grid>
