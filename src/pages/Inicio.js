@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Grid, Typography } from '@material-ui/core';
 import ListaPreguntas from '../components/ListaPreguntas';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -27,8 +28,8 @@ const Inicio = () => {
           </Typography>
         </Grid>
         <Grid>
-          <Button variant="contained" className={classes.test} color="secondary">
-            Preguntas
+          <Button variant="contained" className={classes.test} color="secondary" startIcon={<AddIcon />}>
+            Nueva pregunta
           </Button>
         </Grid>
       </Grid>

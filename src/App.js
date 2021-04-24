@@ -1,7 +1,8 @@
 import React from 'react';
-import Inicio from './pages/Inicio';
+// import Inicio from './pages/Inicio';
 import AppBar from '@material-ui/core/AppBar';
 import { createMuiTheme, MuiThemeProvider, Typography } from '@material-ui/core';
+import PreguntasYRespuestas from './pages/PreguntasYRespuestas';
 
 const THEME = createMuiTheme({
   typography: {
@@ -41,7 +42,7 @@ const App = () => {
       <AppBar>
         <Typography variant="h4">Basic QA</Typography>
       </AppBar>
-      <Inicio />
+      <PreguntasYRespuestas />
     </MuiThemeProvider>
   );
 };
