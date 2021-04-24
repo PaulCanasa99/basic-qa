@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Inicio from './pages/Inicio';
+import AppBar from '@material-ui/core/AppBar';
+import { createMuiTheme, MuiThemeProvider, Typography } from '@material-ui/core';
 
-function App() {
+const THEME = createMuiTheme({
+  typography: {
+    fontFamily: "'Montserrat', sans-serif;",
+    color: 'red',
+    h4: {
+      fontSize: 36,
+      color: '#FFFFFF',
+    },
+    h5: {
+      fontSize: 24,
+      color: '#FFFFFF',
+    },
+    body1: {
+      fontSize: 18,
+      color: '#353535',
+    },
+    body2: {
+      fontSize: 16,
+    },
+    button: {
+      textTransform: 'none',
+    },
+  },
+  palette: {
+    primary: {
+      main: '#284B63',
+    },
+    secondary: {
+      main: '#353535',
+    },
+  },
+});
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MuiThemeProvider theme={THEME}>
+      <AppBar>
+        <Typography variant="h4">Basic QA</Typography>
+      </AppBar>
+      <Inicio />
+    </MuiThemeProvider>
   );
-}
+};
 
 export default App;
