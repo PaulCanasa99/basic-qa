@@ -1,6 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { IconButton, Typography } from '@material-ui/core';
+import moment from 'moment';
+import 'moment/locale/es';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 
 const useStyles = makeStyles((theme) => ({
   respuestaContainer: {
@@ -13,21 +17,47 @@ const useStyles = makeStyles((theme) => ({
     padding: '15px',
     backgroundColor: theme.palette.secondary.main,
     marginTop: '30px',
+    display: 'flex',
   },
 }));
 
 const Respuesta = ({ respuesta }) => {
   const classes = useStyles();
+  moment.locale('es');
+
   return (
     <>
       <div className={classes.respuestaHeader}>
-        <Typography variant="h5">{respuesta.autor}</Typography>
+        <Typography variant="h5" style={{ fontWeight: 'bold' }}>
+          {respuesta.nombre_autor}
+        </Typography>
+        <Typography variant="h5" style={{ margin: '0 5px' }}>
+          {'realizó un comentario el'}
+        </Typography>
+        <Typography variant="h5" style={{ fontWeight: 'bold' }}>
+          {moment(respuesta.fecha).format('D MMMM YYYY')}
+        </Typography>
       </div>
       <div className={classes.respuestaContainer}>
-        <Typography variant="body1">{respuesta.respuesta}</Typography>
-        <Typography variant="body2" align="right">
-          10 respuestas
-        </Typography>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: respuesta.respuesta,
+          }}
+        />
+        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+          <IconButton>
+            <ThumbUpIcon />
+          </IconButton>
+          <Typography variant="body2" style={{ fontWeight: 'bold' }}>
+            {respuesta.num_positivos}
+          </Typography>
+          <IconButton>
+            <ThumbDownIcon />
+          </IconButton>
+          <Typography variant="body2" style={{ fontWeight: 'bold' }}>
+            {respuesta.num_negativos}
+          </Typography>
+        </div>
       </div>
     </>
   );

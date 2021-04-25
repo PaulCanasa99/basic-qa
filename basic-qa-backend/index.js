@@ -4,6 +4,7 @@ const mysql = require('mysql');
 const PORT = process.env.PORT || 8000;
 const app = express();
 const moment = require('moment');
+const cors = require('cors');
 
 app.use(express.json());
 app.use(
@@ -11,6 +12,7 @@ app.use(
     extended: true,
   })
 );
+app.use(cors());
 
 const connection = mysql.createConnection({
   host: 'basic-qa.czr362ogxzgj.us-east-1.rds.amazonaws.com',
@@ -43,15 +45,15 @@ app.post('/api/usuarios/crear', (req, res) => {
 
   connection.query(sql, usuarioObj, (error) => {
     if (error) throw error;
-    res.send('Customer created!');
+    res.send('Usuario creado');
   });
 });
 
-app.post('/api/preguntas', (req, res) => {
+app.get('/api/preguntas', (req, res) => {
   const sql = 'SELECT * FROM preguntas';
   connection.query(sql, (error, results) => {
     if (error) throw error;
-    res.send('Sin resultados');
+    res.status(200).json(results);
   });
 });
 
@@ -64,17 +66,27 @@ app.post('/api/preguntas/crear', (req, res) => {
     detalle: req.body.detalle,
     estado: 1,
     resuelta: 0,
-    fecha: moment(),
+    nombre_autor: req.body.nombreAutor,
+    fecha: new Date(),
   };
   connection.query(sql, preguntaObj, (error) => {
     if (error) throw error;
-    res.send('Respuesta creada');
+    res.send('Pregunta creada');
+  });
+});
+
+app.get('/api/pregunta/detalle/:id', (req, res) => {
+  const { id } = req.params;
+  const sql = `SELECT * FROM preguntas where id_pregunta = ${id} `;
+  connection.query(sql, (error, results) => {
+    if (error) throw error;
+    res.status(200).json(results);
   });
 });
 
 app.get('/api/respuestas/:id', (req, res) => {
   const { id } = req.params;
-  const sql = `SELECT * FROM respuestas where id_respuesta = ${id} `;
+  const sql = `SELECT * FROM respuestas where id_pregunta = ${id} `;
   connection.query(sql, (error, results) => {
     if (error) throw error;
     res.json(results);
@@ -85,9 +97,11 @@ app.post('/api/respuestas/crear', (req, res) => {
   const sql = 'INSERT INTO respuestas SET ?';
 
   const respuestaObj = {
-    id_pregunta: req.body.idAutor,
-    id_autor: req.body.titulo,
-    fecha: moment(),
+    id_pregunta: req.body.idPregunta,
+    id_autor: req.body.idAutor,
+    nombre_autor: req.body.nombreAutor,
+    respuesta: req.body.respuesta,
+    fecha: new Date(),
     estado: 1,
   };
 
@@ -118,24 +132,30 @@ app.get('/api/usuarios/:usuario/verificar', (req, res) => {
 
   connection.query(sql, (error, results) => {
     if (error) throw error;
-    if (results[0]) res.json({ resultado: results[0].id_usuario });
-    //   const sql2 = `SELECT * FROM usuarios WHERE id_usuario = '${results[0]}' AND password = '${req.body.password}'`;
-    //   connection.query(sql2, (error, results) => {
-    //     if (error) throw error;
-    //     if (results[0]) res.send(results[0].id_usuario);
-    //     else res.send('hola');
-    //   });
-    else res.json({ resultado: -1 });
+    if (results[0]) res.status(200).json({ resultado: results[0].id_usuario });
+    else res.status(400).json(null);
   });
 });
 
-app.get('/api/login', (req, res) => {
-  const sql = `SELECT * FROM usuarios WHERE id_usuario = '${req.body.usuarioId}' AND password = '${req.body.password}'`;
+app.get('/api/usuarios/:usuario/existe', (req, res) => {
+  const { usuario } = req.params;
+  const sql = `SELECT id_usuario FROM usuarios WHERE nombre = '${usuario}' OR correo = '${usuario}'`;
 
   connection.query(sql, (error, results) => {
     if (error) throw error;
-    if (results[0]) res.json({ resultado: results[0].id_usuario });
-    else res.json({ resultado: -1 });
+    if (results[0]) res.status(200).send(true);
+    else res.status(200).send(false);
+  });
+});
+
+app.get('/api/login/:id/:password', (req, res) => {
+  const { id, password } = req.params;
+  const sql = `SELECT * FROM usuarios WHERE id_usuario = '${id}' AND password = '${password}'`;
+  connection.query(sql, (error, results) => {
+    if (error) throw error;
+    if (results[0])
+      res.status(200).json({ id: results[0].id_usuario, nombre: results[0].nombre, correo: results[0].correo });
+    else res.status(400).json(null);
   });
 });
 
