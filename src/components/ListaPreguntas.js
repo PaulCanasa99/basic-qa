@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '10px 10px 0 0',
     padding: '15px',
     backgroundColor: '#353535',
-    marginTop: '20px',
+    marginTop: '30px',
   },
 }));
 
@@ -29,7 +29,7 @@ const ListaPreguntas = () => {
       {data.map((pregunta, index, array) => (
         <div
           style={{
-            backgroundColor: index % 2 ? '#FFFFFF' : '#D9D9D9',
+            backgroundColor: index % 2 ? '#D9D9D9' : '#FFF',
             borderRadius: index === array.length - 1 ? '0px 0px 10px 10px' : '0px',
           }}
           className={classes.preguntaContainer}

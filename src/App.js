@@ -1,11 +1,12 @@
 import React from 'react';
-// import Inicio from './pages/Inicio';
+import Inicio from './pages/Inicio';
 import AppBar from '@material-ui/core/AppBar';
 import { createMuiTheme, MuiThemeProvider, Typography } from '@material-ui/core';
-// import CrearPregunta from './pages/CrearPregunta';
-// import PreguntasYRespuestas from './pages/PreguntasYRespuestas';
-// import Login from './pages/Login';
+import CrearPregunta from './pages/CrearPregunta';
+import PreguntaYRespuestas from './pages/PreguntaYRespuestas';
+import Login from './pages/Login';
 import Registro from './pages/Registro';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const THEME = createMuiTheme({
   typography: {
@@ -28,7 +29,7 @@ const THEME = createMuiTheme({
     },
     button: {
       textTransform: 'none',
-      fontSize: 16,
+      fontSize: 18,
     },
   },
   palette: {
@@ -44,10 +45,18 @@ const THEME = createMuiTheme({
 const App = () => {
   return (
     <MuiThemeProvider theme={THEME}>
-      <AppBar>
+      <AppBar style={{ padding: '15px' }}>
         <Typography variant="h4">Basic QA</Typography>
       </AppBar>
-      <Registro />
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Inicio} />
+          <Route path="/pregunta/:idPregunta" component={PreguntaYRespuestas} />
+          <Route path="/crearPregunta" component={CrearPregunta} />
+          <Route path="/login" component={Login} />
+          <Route path="/registro" component={Registro} />
+        </Switch>
+      </Router>
     </MuiThemeProvider>
   );
 };

@@ -36,7 +36,7 @@ const PreguntasYRespuestas = (props) => {
         <Respuesta respuesta={respuesta} />
       ))}
       <Divider style={{ margin: '20px 0', height: '2px' }} />
-      <Typography variant="h4" color="secondary" style={{ marginBottom: '20px' }}>
+      <Typography variant="h4" color="secondary" style={{ marginBottom: '30px' }}>
         Tu respuesta
       </Typography>
       <CKEditor

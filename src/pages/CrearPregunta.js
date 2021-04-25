@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '10px 10px 0 0',
     padding: '15px',
     backgroundColor: theme.palette.secondary.main,
-    marginTop: '20px',
+    marginTop: '30px',
   },
   textField: {
     margin: '10px 0',
@@ -36,7 +36,7 @@ const CrearPregunta = (props) => {
   return (
     <div className={classes.container}>
       <Typography variant="h4" color="secondary">
-        Preguntas
+        Crear pregunta
       </Typography>
       <div className={classes.preguntaHeader}>
         <Typography variant="h5">Título de la pregunta</Typography>

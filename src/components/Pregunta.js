@@ -6,13 +6,13 @@ const useStyles = makeStyles((theme) => ({
   preguntaContainer: {
     padding: '15px',
     backgroundColor: 'white',
-    borderRadius: '0 0 10px 10px ',
+    borderRadius: '0 0 10px 10px',
   },
   preguntaHeader: {
     borderRadius: '10px 10px 0 0',
     padding: '15px',
     backgroundColor: theme.palette.secondary.main,
-    marginTop: '20px',
+    marginTop: '30px',
   },
 }));
 
