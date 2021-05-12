@@ -61,7 +61,7 @@ const Registro = () => {
               .catch((e) => {
                 console.log(e);
               });
-            history.pushState('/');
+            history.push('/');
           } else {
             setOpen(true);
           }
